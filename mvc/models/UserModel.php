@@ -102,13 +102,13 @@ class userModel
             $mail->SMTPSecure = "tls";
             $mail->Port       = 587;
             $mail->Host       = "smtp.gmail.com";
-            $mail->username   = "khuongip564gb@gmail.com";
-            $mail->Password   = "khuongidwgb";
+            $mail->username   = "pn.flatshop@gmail.com";
+            $mail->Password   = "uwficymusyjbbsze";
 
             $mail->IsHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->AddAddress($email, "recipient-name");
-            $mail->SetFrom("khuongip564gb@gmail.com", "HUYPHAM STORE");
+            $mail->SetFrom("pn.flatshop@gmail.com", "HUYPHAM STORE");
             $mail->Subject = "Xác nhận email tài khoản - HUYPHAM STORE";
             $mail->Body = "<h3>Cảm ơn bạn đã đăng ký tài khoản tại website HUYPHAM STORE</h3></br>Đây là mã xác minh tài khoản của bạn: " . $captcha . "";
 
