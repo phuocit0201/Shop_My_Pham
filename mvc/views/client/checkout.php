@@ -14,7 +14,7 @@
   $listCategory = $result->fetch_all(MYSQLI_ASSOC);
   ?>
   <nav class="navbar">
-    <div class="logo">HUYPHAM STORE</div>
+    <div class="logo">SYDAPHAM STORE</div>
     <div class="search-container">
       <form action="<?= URL_ROOT ?>/product/search" method="get">
         <input type="text" class="search" placeholder="Tìm kiếm.." name="keyword">
@@ -183,6 +183,10 @@
   <?php require APP_ROOT . '/views/client/inc/footer.php'; ?>
   <script>
     function update(e) {
+      if (e.value < 1) {
+        alert('Số lượng sản phẩm tối thiểu là 1');
+        return;
+      }
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "http://localhost/luanvan/cart/updateItemcart/" + e.id + "/" + e.value, true);
       xhr.onload = function() {

@@ -18,6 +18,7 @@
                     <div class="activity-card">
                         <a href="<?= URL_ROOT . '/productManage/add' ?>" class="button right">Thêm mới</a>
                         <h3>Danh sách sản phẩm</h3>
+                        <p style="padding-left: 16px; color:green; padding-bottom: 16px"><?php if (isset($_SESSION['delete_success'])) echo $_SESSION['delete_success']; unset($_SESSION['delete_success']);  ?></p>
                         <div class="table-responsive">
                             <table>
                                 <thead>
@@ -57,6 +58,7 @@
                                                 ?>
                                                 </a>
                                                 <a class="button-normal" href="<?= URL_ROOT . '/productManage/edit/' . $value['id'] ?>">Chi tiết/Sửa</a>
+                                                <a class="button-red" href="<?= URL_ROOT . '/productManage/delete/' . $value['id'] ?>">Xóa</a>
                                             </td>
                                         </tr>
                                     <?php }
