@@ -35,7 +35,7 @@ class productModel
     public function getById($Id)
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM products WHERE Id='$Id' AND status=1";
+        $sql = "SELECT * FROM products WHERE Id='$Id' AND delete_flg = 0 AND status=1";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -43,7 +43,7 @@ class productModel
     public function getByIdAdmin($Id)
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM products WHERE Id='$Id'";
+        $sql = "SELECT * FROM products WHERE Id='$Id' AND delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -55,7 +55,7 @@ class productModel
         }
         $tmp = ($page - 1) * $total;
         $db = DB::getInstance();
-        $sql = "SELECT * FROM products WHERE cateId='$CateId' AND status=1 LIMIT $tmp,$total";
+        $sql = "SELECT * FROM products WHERE cateId='$CateId' AND status=1 AND delete_flg = 0 LIMIT $tmp,$total";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -63,7 +63,7 @@ class productModel
     public function getByCateIdSinglePage($CateId, $Id)
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM products WHERE cateId='$CateId' AND status=1 AND id != $Id ORDER BY soldCount DESC LIMIT 4";
+        $sql = "SELECT * FROM products WHERE cateId='$CateId' AND status=1 AND id != $Id AND delete_flg = 0 ORDER BY soldCount DESC LIMIT 4";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -71,7 +71,7 @@ class productModel
     public function getFeaturedproducts()
     {
         $db = DB::getInstance();
-        $sql = "SELECT p.id, p.name, p.image, p.originalPrice, p.promotionPrice, p.qty as qty, p.soldCount as soldCount FROM products p JOIN categories c ON p.cateId = c.id WHERE p.status=1 AND c.status = 1 AND soldCount > 0 order BY soldCount DESC LIMIT 4";
+        $sql = "SELECT p.id, p.name, p.image, p.originalPrice, p.promotionPrice, p.qty as qty, p.soldCount as soldCount FROM products p JOIN categories c ON p.cateId = c.id WHERE p.status=1 AND c.status = 1 AND soldCount > 0 AND p.delete_flg = 0 order BY soldCount DESC LIMIT 4";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -79,7 +79,7 @@ class productModel
     public function getNewproducts()
     {
         $db = DB::getInstance();
-        $sql = "SELECT p.id, p.name, p.image, p.originalPrice, p.promotionPrice, p.qty as qty, p.soldCount as soldCount FROM products p JOIN categories c ON p.cateId = c.id WHERE p.status=1 AND c.status = 1 order BY id DESC LIMIT 4";
+        $sql = "SELECT p.id, p.name, p.image, p.originalPrice, p.promotionPrice, p.qty as qty, p.soldCount as soldCount FROM products p JOIN categories c ON p.cateId = c.id WHERE p.status=1 AND c.status = 1 AND p.delete_flg = 0 order BY id DESC LIMIT 4";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -99,7 +99,7 @@ class productModel
         }
         $tmp = ($page - 1) * $total;
         $db = DB::getInstance();
-        $sql = "SELECT * FROM products ORDER BY createdDate DESC LIMIT $tmp,$total";
+        $sql = "SELECT * FROM products where delete_flg = 0 ORDER BY createdDate DESC LIMIT $tmp,$total";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -107,7 +107,7 @@ class productModel
     public function searchAdmin($keyword)
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM products WHERE name LIKE '%$keyword%'";
+        $sql = "SELECT * FROM products WHERE name LIKE '%$keyword%' and delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         if (mysqli_num_rows($result)) {
             return $result;
@@ -178,7 +178,7 @@ class productModel
 
         $sql = "INSERT INTO `products` (`id`, `name`, `originalPrice`, `promotionPrice`, `image`,`image2`,`image3`, `createdBy`, `createdDate`, `cateId`, `qty`, `des`, `status`, `soldCount`,`weight`) VALUES (NULL, '" . $product['name'] . "', " . $product['originalPrice'] . ", " . $product['promotionPrice'] . ", '" . $unique_image . "', '" . $unique_image2 . "', '" . $unique_image3 . "', " . $_SESSION['user_id'] . ", '" . date("y-m-d H:i:s") . "', " . $product['cateId'] . ", " . $product['qty'] . ", '" . $product['des'] . "', 1, 0, " . $product['weight'] . ")";
         $result = mysqli_query($db->con, $sql);
-        file_get_contents("http://localhost:8983/solr/products/dataimport?command=full-import");
+        // file_get_contents("http://localhost:8983/solr/products/dataimport?command=full-import");
         return $result;
     }
 
@@ -244,7 +244,7 @@ class productModel
     public function getCountPaging($row = 8)
     {
         $db = DB::getInstance();
-        $sql = "SELECT COUNT(*) FROM products";
+        $sql = "SELECT COUNT(*) FROM products where delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         if ($result) {
             $totalrow = intval((mysqli_fetch_all($result, MYSQLI_ASSOC)[0])['COUNT(*)']);
@@ -256,7 +256,7 @@ class productModel
     public function getCountPagingByClient($cateId, $row = 8)
     {
         $db = DB::getInstance();
-        $sql = "SELECT COUNT(*) FROM products WHERE cateId = $cateId AND status=1";
+        $sql = "SELECT COUNT(*) FROM products WHERE cateId = $cateId AND status=1 and delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         if ($result) {
             $totalrow = intval((mysqli_fetch_all($result, MYSQLI_ASSOC)[0])['COUNT(*)']);
@@ -269,6 +269,14 @@ class productModel
     {
         $db = DB::getInstance();
         $sql = "SELECT SUM(p.soldCount) AS total, p.name FROM `orders` o JOIN order_details od ON o.id  JOIN products p ON od.productId = p.id WHERE MONTH(o.createdDate) = MONTH(NOW()) AND o.paymentStatus=1 GROUP BY p.id, MONTH(o.createdDate), YEAR(o.createdDate)";
+        $result = mysqli_query($db->con, $sql);
+        return $result;
+    }
+
+    public function deleteProduct($id)
+    {
+        $db = DB::getInstance();
+        $sql = "UPDATE products SET delete_flg = 1 WHERE id=" . $id;
         $result = mysqli_query($db->con, $sql);
         return $result;
     }

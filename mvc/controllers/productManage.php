@@ -1,6 +1,6 @@
 <?php
 
-class productManage extends ControllerBase
+class productManage extends ControllerBaseAdmin
 {
     public function index()
     {
@@ -122,5 +122,13 @@ class productManage extends ControllerBase
         if ($result) {
             $this->redirect("productManage");
         }
+    }
+
+    public function delete($id)
+    {
+        $product = $this->model("productModel");
+        $product->deleteProduct($id);
+        $_SESSION['delete_success'] = 'Xoá sản phẩm thành công!';
+        $this->redirect("productManage");
     }
 }

@@ -108,9 +108,9 @@ class userModel
             $mail->IsHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->AddAddress($email, "recipient-name");
-            $mail->SetFrom("pn.flatshop@gmail.com", "HUYPHAM STORE");
-            $mail->Subject = "Xác nhận email tài khoản - HUYPHAM STORE";
-            $mail->Body = "<h3>Cảm ơn bạn đã đăng ký tài khoản tại website HUYPHAM STORE</h3></br>Đây là mã xác minh tài khoản của bạn: " . $captcha . "";
+            $mail->SetFrom("pn.flatshop@gmail.com", "SYDAPHAM STORE");
+            $mail->Subject = "Xác nhận email tài khoản - SYDAPHAM STORE";
+            $mail->Body = "<h3>Cảm ơn bạn đã đăng ký tài khoản tại website SYDAPHAM STORE</h3></br>Đây là mã xác minh tài khoản của bạn: " . $captcha . "";
 
             $mail->Send();
 

@@ -90,7 +90,7 @@
   $listCategory = $result->fetch_all(MYSQLI_ASSOC);
   ?>
   <nav class="navbar">
-    <div class="logo">HUYPHAM STORE</div>
+    <div class="logo">SYDAPHAM STORE</div>
     <div class="search-container">
       <form action="<?= URL_ROOT ?>/product/search" method="get">
         <input type="text" class="search" placeholder="Tìm kiếm.." name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">

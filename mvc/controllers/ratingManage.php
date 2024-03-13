@@ -1,6 +1,6 @@
 <?php
 
-class ratingManage extends ControllerBase
+class ratingManage extends ControllerBaseAdmin
 {
     public function index($page = 1)
     {
