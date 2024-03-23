@@ -16,20 +16,42 @@ class productModel
         return self::$instance;
     }
 
-    public function search($keyword)
+    public function search($name)
     {
-        $contents = file_get_contents("http://localhost:8983/solr/products/select?q=name:%20(" . $keyword . ")%0Ades:%20(" . $keyword . ")&wt=php&rows=999");
-        $result = 0;
-        eval("\$result = " . $contents . ";");
-        return $result['response']['docs'];
+        $db = DB::getInstance();
+        // $keyWord = [];
+        // $keyWordProduct = explode(" ", $name);
+        // if (count($keyWordProduct) == 0) {
+        //     return [];
+        // }
+        // foreach($keyWordProduct as $value) {
+        //     $keyWord[] = "name LIKE '%$value%'";
+        // }
+        // $conditions = implode(" OR ", $keyWord);
+        
+        $sql = "SELECT * FROM products WHERE name like '%$name%' and delete_flg = 0 AND status = 1";
+
+        $result = mysqli_query($db->con, $sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProductSuggest($keyword, $id)
+    public function getProductSuggest($product)
     {
-        $contents = file_get_contents("http://localhost:8983/solr/products/select?q=-id:%20" . $id . "%0Aname:%20(" . $keyword . ")&wt=php&rows=4");
-        $result = 0;
-        eval("\$result = " . $contents . ";");
-        return $result['response']['docs'];
+        $db = DB::getInstance();
+        $keyWord = [];
+        $keyWordProduct = explode(" ", $product['name']);
+        if (count($keyWordProduct) == 0) {
+            return [];
+        }
+        foreach($keyWordProduct as $value) {
+            $keyWord[] = "name LIKE '%$value%'";
+        }
+        $conditions = implode(" OR ", $keyWord);
+        
+        $sql = "SELECT * FROM products WHERE cateID = " . $product['cateId'] . " AND delete_flg = 0 AND status=1 AND ($conditions)";
+
+        $result = mysqli_query($db->con, $sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getById($Id)

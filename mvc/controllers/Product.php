@@ -5,7 +5,7 @@ class product extends ControllerBase
     public function search()
     {
         $product = $this->model("productModel");
-        $result = $product->search(urlencode($_GET["keyword"]));
+        $result = $product->search($_GET["keyword"] ?? '');
         $this->view("client/products", [
             "headTitle" => "Tìm kiếm",
             "title" => "Tìm kiếm với từ khóa: " . $_GET['keyword'],
@@ -41,7 +41,7 @@ class product extends ControllerBase
         $result = $product->getById($Id);
         // Fetch
         $p = $result->fetch_assoc();
-        $list = $product->getProductSuggest(urlencode($p['name']),$p['id']);
+        $list = $product->getProductSuggest($p);
 
         if (!isset($_SESSION['viewed'])) {
             $_SESSION['viewed'] = [];
