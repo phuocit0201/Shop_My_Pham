@@ -3,7 +3,7 @@
         <div class="sidebar-header">
             <h3 class="brand">
                 <span class="ti-unlink"></span> 
-                <span>HUYPHAM</span>
+                <span>SYDAPHAM STORE</span>
             </h3> 
             <label for="sidebar-toggle" class="ti-menu-alt"></label>
         </div>
@@ -38,6 +38,18 @@
                     <a href="<?= URL_ROOT . '/orderManage' ?>">
                         <span class="ti-agenda"></span>
                         <span>Quản lý đơn đặt hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= URL_ROOT . '/adminManage' ?>">
+                        <span class="ti-agenda"></span>
+                        <span>Quản lý admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= URL_ROOT . '/userManage' ?>">
+                        <span class="ti-agenda"></span>
+                        <span>Quản lý khách hàng</span>
                     </a>
                 </li>
                 <li>

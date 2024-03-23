@@ -6,4 +6,5 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="<?= URL_ROOT ?>/public/css/admin.css">
     <title><?= isset($data['headTitle']) ? $data["headTitle"] : "..."?></title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
