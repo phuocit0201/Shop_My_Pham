@@ -19,7 +19,7 @@ class categoryModel
     public function getAllClient()
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM categories WHERE status=1";
+        $sql = "SELECT * FROM categories WHERE status=1 and delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -31,7 +31,7 @@ class categoryModel
         }
         $tmp = ($page - 1) * $total;
         $db = DB::getInstance();
-        $sql = "SELECT * FROM categories LIMIT $tmp,$total";
+        $sql = "SELECT * FROM categories WHERE delete_flg = 0 LIMIT $tmp,$total";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -39,7 +39,7 @@ class categoryModel
     public function getById($Id)
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM categories WHERE Id='$Id' AND status=1";
+        $sql = "SELECT * FROM categories WHERE Id='$Id' AND status=1 and delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -47,7 +47,7 @@ class categoryModel
     public function getByIdAdmin($Id)
     {
         $db = DB::getInstance();
-        $sql = "SELECT * FROM categories WHERE Id='$Id'";
+        $sql = "SELECT * FROM categories WHERE Id='$Id' and delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -71,7 +71,7 @@ class categoryModel
     public function update($id, $name)
     {
         $db = DB::getInstance();
-        $sql = "UPDATE categories SET name = '" . $name . "' WHERE id=" . $id;
+        $sql = "UPDATE categories SET name = '" . $name . "' WHERE id=" . $id ;
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -79,12 +79,20 @@ class categoryModel
     public function getCountPaging($row = 8)
     {
         $db = DB::getInstance();
-        $sql = "SELECT COUNT(*) FROM categories";
+        $sql = "SELECT COUNT(*) FROM categories where delete_flg = 0";
         $result = mysqli_query($db->con, $sql);
         if ($result) {
             $totalrow = intval((mysqli_fetch_all($result, MYSQLI_ASSOC)[0])['COUNT(*)']);
             return ceil($totalrow / $row);
         }
         return false;
+    }
+
+    public function deleteCategory($id)
+    {
+        $db = DB::getInstance();
+        $sql = "UPDATE categories SET delete_flg = 1 WHERE id=" . $id;
+        $result = mysqli_query($db->con, $sql);
+        return $result;
     }
 }

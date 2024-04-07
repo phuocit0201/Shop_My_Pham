@@ -79,7 +79,7 @@ class productManage extends ControllerBaseAdmin
         }
         
         $category = $this->model("categoryModel");
-        $result = $category->getAllAdmin();
+        $result = $category->getAllAdmin(1,100000);
         $categoryList = $result->fetch_all(MYSQLI_ASSOC);
 
         $product = $this->model("productModel");

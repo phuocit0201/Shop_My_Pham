@@ -9,7 +9,7 @@ class categoryManage extends ControllerBaseAdmin
         }
         // Khởi tạo model
         $category = $this->model("categoryModel");
-        $categoryList = ($category->getAllAdmin($page['page']))->fetch_all(MYSQLI_ASSOC);
+        $categoryList = ($category->getAllAdmin($page['page'] ?? 1))->fetch_all(MYSQLI_ASSOC);
         $countPaging = $category->getCountPaging(8);
 
         $this->view("admin/category", [
@@ -101,5 +101,15 @@ class categoryManage extends ControllerBaseAdmin
         if ($result) {
             $this->redirect("categoryManage");
         }
+    }
+
+    public function delete($id)
+    {
+        $product = $this->model("productModel");
+        $product->deleteProductByCategory($id);
+        $categoryModel = $this->model("categoryModel");
+        $categoryModel->deleteCategory($id);
+        $_SESSION['delete_success'] = 'Xoá danh mục thành công!';
+        $this->redirect("categoryManage");
     }
 }

@@ -302,4 +302,12 @@ class productModel
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
+
+    public function deleteProductByCategory($id)
+    {
+        $db = DB::getInstance();
+        $sql = "UPDATE products SET delete_flg = 1 WHERE cateId=" . $id;
+        $result = mysqli_query($db->con, $sql);
+        return $result;
+    }
 }
