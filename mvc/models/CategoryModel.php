@@ -63,7 +63,7 @@ class categoryModel
     public function insert($name)
     {
         $db = DB::getInstance();
-        $sql = "INSERT INTO categories VALUES (NULL, '$name',1)";
+        $sql = "INSERT INTO categories VALUES (NULL, '$name',1, 0)";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
