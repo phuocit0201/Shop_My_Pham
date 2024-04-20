@@ -11,7 +11,7 @@
                     <div class="activity-card">
                         <h3>Xem/Sửa danh mục</h3>
                         <div class="form">
-                            <form action="<?= URL_ROOT . '/categoryManage/edit' ?>" method="POST">
+                            <form action="<?= URL_ROOT . '/categoryManage/edit/' . $data['category']['id'] ?>" method="POST">
                                 <input type="hidden" name="id" value="<?= $data['category']['id'] ?>">
                                 <p class="<?= $data['cssClass'] ?>"><?= isset($data['message']) ? $data['message'] : "" ?></p>
                                 <label for="name">Tên danh mục</label>

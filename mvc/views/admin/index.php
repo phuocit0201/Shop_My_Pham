@@ -65,6 +65,7 @@
     </div>
     <script>
         const d = new Date();
+        const currentMonth = parseInt(d.getMonth()) + 1
         var xValues = <?php echo "[";
                         for ($i = 0; $i < count($data['days']); $i++) {
                             if ($i + 1 < count($data['days'])) {
@@ -108,7 +109,7 @@
                 },
                 title: {
                     display: true,
-                    text: "Biểu đồ doanh thu tháng "+d.getMonth()
+                    text: "Biểu đồ doanh thu tháng "+ currentMonth
                 }
             }
         });
@@ -156,7 +157,7 @@
                 },
                 title: {
                     display: true,
-                    text: "Biểu đồ sản phẩm bán chạy trong tháng "+d.getMonth()
+                    text: "Biểu đồ sản phẩm bán chạy trong tháng "+ currentMonth
                 }
             }
         });

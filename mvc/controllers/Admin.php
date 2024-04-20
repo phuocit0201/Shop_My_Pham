@@ -19,6 +19,7 @@ class Admin extends ControllerBaseAdmin
         $totalOrderCompleted = $order->getTotalOrderCompleted();
         $totalClient = $user->getTotalClient();
         $revenueMonth = $order->getRevenueMonth()->fetch_all(MYSQLI_ASSOC);
+        
         $totals = [];
         for ($i = 0; $i < count($revenueMonth); $i++) {
             $totals[$i] = $revenueMonth[$i]['total'];

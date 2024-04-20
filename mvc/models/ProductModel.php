@@ -247,7 +247,7 @@ class productModel
         }
 
         $db = DB::getInstance();
-        $sql = "UPDATE `products` SET name = '" . $_POST['name'] . "', `originalPrice` = " . $_POST['originalPrice'] . ", `promotionPrice` = " . $_POST['promotionPrice'];
+        $sql = "UPDATE `products` SET name = '" . $_POST['name'] . "', `originalPrice` = " . $_POST['originalPrice'] . ", `promotionPrice` = " . $_POST['promotionPrice'] . ", `qty` = " . $_POST['qty'];
         if (!empty($_FILES['image']['name'])) {
             $sql .=  ", `image` = '" . $unique_image . "'";
         }
@@ -259,7 +259,6 @@ class productModel
         }
         $sql .= ", `cateId` = " . $_POST['cateId'] . ", `des` = '" . $_POST['des'] . "', `weight` = " . $_POST['weight'] . " WHERE id = " . $_POST['id'] . "";
         $result = mysqli_query($db->con, $sql);
-        file_get_contents("http://localhost:8983/solr/products/dataimport?command=full-import");
         return $result;
     }
 

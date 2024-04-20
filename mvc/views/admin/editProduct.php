@@ -10,7 +10,7 @@
                     <div class="activity-card">
                         <h3>Cập nhật sản phẩm</h3>
                         <div class="form">
-                            <form action="<?= URL_ROOT . '/productManage/edit' ?>" method="POST" enctype="multipart/form-data">
+                            <form action="<?= URL_ROOT . '/productManage/edit/' . $data['product']['id']?>" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="<?= $data['product']['id'] ?>">
                                 <p class="<?= $data['cssClass'] ?>"><?= isset($data['message']) ? $data['message'] : "" ?></p>
                                 <label for="name">Tên sản phẩm</label>

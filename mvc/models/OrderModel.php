@@ -131,7 +131,7 @@ class orderModel
     public function getTotalRevenue()
     {
         $db = DB::getInstance();
-        $sql = "SELECT SUM(total) AS total FROM orders";
+        $sql = "SELECT SUM(total) - SUM((total * discount) / 100) as total FROM orders;";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
@@ -147,7 +147,7 @@ class orderModel
     public function getRevenueMonth()
     {
         $db = DB::getInstance();
-        $sql = "SELECT SUM(total) AS total,DAY(createdDate) as day FROM `orders` WHERE MONTH(createdDate) = MONTH(NOW()) AND paymentStatus=1 GROUP BY DAY(createdDate), MONTH(createdDate), YEAR(createdDate)";
+        $sql = "SELECT SUM(total) AS total,DAY(createdDate) as day FROM `orders` WHERE MONTH(createdDate) = MONTH(NOW()) GROUP BY DAY(createdDate), MONTH(createdDate), YEAR(createdDate)";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
