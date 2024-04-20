@@ -130,8 +130,8 @@
             <input type="hidden" name="total" value="<?= $total ?>">
             <label for="cod">Thanh toán tiền mặt khi nhận hàng (COD)</label>
             <input type="radio" id="cod" id="cod" name="paymentMethod" value="cod" checked>
-            <!-- <img style="height: 50px;" src="<?= URL_ROOT ?>/public/images/wallet.jpg" alt="" srcset=""><br>
-            <label for="vnpay">Ví điện tử VNPay</label>
+            <img style="height: 50px;" src="<?= URL_ROOT ?>/public/images/wallet.jpg" alt="" srcset=""><br>
+            <!-- <label for="vnpay">Ví điện tử VNPay</label>
             <input type="radio" id="vnpay" id="vnpay" name="paymentMethod" value="vnpay">
             <img style="height: 50px;" src="<?= URL_ROOT ?>/public/images/vnpay.png" alt="" srcset=""><br>
             <label for="momo">Ví điện tử MOMO</label>
@@ -147,8 +147,8 @@
             <input type="hidden" name="total" value="<?= $total ?>">
             <label for="cod">Thanh toán tiền mặt khi nhận hàng (COD)</label>
             <input type="radio" id="cod" id="cod" name="paymentMethod" value="cod" checked>
-            <!-- <img style="height: 50px;" src="<?= URL_ROOT ?>/public/images/wallet.jpg" alt="" srcset=""><br>
-            <label for="vnpay">Ví điện tử VNPay</label>
+            <img style="height: 50px;" src="<?= URL_ROOT ?>/public/images/wallet.jpg" alt="" srcset=""><br>
+            <!-- <label for="vnpay">Ví điện tử VNPay</label>
             <input type="radio" id="vnpay" id="vnpay" name="paymentMethod" value="vnpay">
             <img style="height: 50px;" src="<?= URL_ROOT ?>/public/images/vnpay.png" alt="" srcset=""><br>
             <label for="momo">Ví điện tử MOMO</label>
