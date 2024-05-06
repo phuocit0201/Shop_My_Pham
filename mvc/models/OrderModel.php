@@ -147,7 +147,7 @@ class orderModel
     public function getRevenueMonth()
     {
         $db = DB::getInstance();
-        $sql = "SELECT SUM(total) AS total,DAY(createdDate) as day FROM `orders` WHERE MONTH(createdDate) = MONTH(NOW()) GROUP BY DAY(createdDate), MONTH(createdDate), YEAR(createdDate)";
+        $sql = "SELECT SUM(total) - SUM((total * discount) / 100) AS total,DAY(createdDate) as day FROM `orders` WHERE MONTH(createdDate) = MONTH(NOW()) GROUP BY DAY(createdDate), MONTH(createdDate), YEAR(createdDate)";
         $result = mysqli_query($db->con, $sql);
         return $result;
     }
